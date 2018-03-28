@@ -1,5 +1,6 @@
 package test;
 
+import main.Constants;
 import main.Mastermind;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,9 +14,10 @@ public class IntegratedTest {
     public void selectFourDifferentRandomColoursFromTheGivenSixColours() {
         List<String> allPossibleColours = Arrays.asList("Red", "Blue", "Green", "Orange", "Purple", "Yellow");
 
-        Mastermind game = new Mastermind(true);
+        Mastermind mastermind = new Mastermind(new Constants());
 
-        List<String> selectedColours = game.getSelectedColours();
+        mastermind.setSelectedColours(true);
+        List<String> selectedColours = mastermind.getSelectedColours();
 
         Assert.assertEquals(4, selectedColours.size());
 
@@ -26,12 +28,13 @@ public class IntegratedTest {
     }
 
     @Test
-    public void selectFourRandomColoursThatMaybeDuplicatesFromTheGivenSixColours() {
+    public void selectFourRandomColoursThatMaybBeDuplicatesFromTheGivenSixColours() {
         List<String> allPossibleColours = Arrays.asList("Red", "Blue", "Green", "Orange", "Purple", "Yellow");
 
-        Mastermind game = new Mastermind(false);
+        Mastermind mastermind = new Mastermind(new Constants());
 
-        List<String> selectedColours = game.getSelectedColours();
+        mastermind.setSelectedColours(false);
+        List<String> selectedColours = mastermind.getSelectedColours();
 
         Assert.assertEquals(4, selectedColours.size());
 
