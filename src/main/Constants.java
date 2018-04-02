@@ -3,17 +3,21 @@ package main;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class has all the constants used for the mastermind game.
+ */
 public class Constants {
     private final int MAX_MOVES = 60;
     private final int MAX_LIST_SIZE = 4;
 
-    List<String> allPossibleColours = Arrays.asList("Red", "Blue", "Green", "Orange", "Purple", "Yellow");
+    private final List<String> allPossibleColours = Arrays.asList("Red", "Blue", "Green", "Orange", "Purple", "Yellow");
 
     private final String WON_MESSAGE = "WON";
+
     private final String WRONG_ANSWER_STRING = "White";
     private final String RIGHT_ANSWER_STRING = "Black";
 
-    private final Messages messages = new Messages();
+    private final ErrorMessages messages = new ErrorMessages();
 
     public int getMAX_MOVES() {
         return MAX_MOVES;
@@ -39,7 +43,7 @@ public class Constants {
         return RIGHT_ANSWER_STRING;
     }
 
-    public Messages getMessages() {
+    public ErrorMessages getMessages() {
         return messages;
     }
 }

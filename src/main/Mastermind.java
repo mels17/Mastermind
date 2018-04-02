@@ -2,9 +2,10 @@ package main;
 
 import java.util.*;
 
+/**
+ * This class selects randomly from the list of all possible colours.
+ */
 public class Mastermind {
-
-    private boolean DUPLICATES_ALLOWED = true;
 
     private List<String> selectedColours;
 
@@ -23,11 +24,15 @@ public class Mastermind {
 
 
     public void setSelectedColours(boolean withoutDuplicateColours) {
-        selectedColours = withoutDuplicateColours ? selectFourDifferentColours(shuffleColours()) : selectFourColoursThatCanBeDuplicates();
+        if (withoutDuplicateColours) {
+            selectFourDifferentColours(shuffleColours());
+        } else {
+            selectFourColoursThatCanBeDuplicates();
+        }
     }
 
     public List<String> getSelectedColours() {
-        return selectedColours;
+        return this.selectedColours;
     }
 
     private List<String> shuffleColours() {
@@ -36,21 +41,17 @@ public class Mastermind {
         return shuffledList;
     }
 
-    private List<String> selectFourDifferentColours(List<String> shuffledList) {
+    private void selectFourDifferentColours(List<String> shuffledList) {
         selectedColours = shuffledList.subList(0, constants.getMAX_LIST_SIZE());
-        return selectedColours;
     }
 
-    private List<String> selectFourColoursThatCanBeDuplicates() {
+    private void selectFourColoursThatCanBeDuplicates() {
         Random numberGenerator = new Random();
         int nextRandom;
 
         for (int i = 0; i < constants.getMAX_LIST_SIZE() ; i++) {
-            nextRandom = numberGenerator.nextInt(6 - i);
+            nextRandom = numberGenerator.nextInt(constants.getAllPossibleColours().size() - i);
             selectedColours.add(constants.getAllPossibleColours().get(nextRandom));
         }
-
-        return selectedColours;
-
     }
 }

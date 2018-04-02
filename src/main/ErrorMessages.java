@@ -1,6 +1,9 @@
 package main;
 
-public class Messages {
+/**
+ * This class has all the string error messages required for the mastermind class.
+ */
+public class ErrorMessages {
     public String getInvalidColourErrorMessage() {
         return "Error: you have given an invalid colour!";
     }
