@@ -32,7 +32,7 @@ public class IntegratedTest {
     }
 
     public String getColourNotInMastermind(List<String> mastermindColours) {
-        for (String colour: constants.getAllPossibleColours()) {
+        for (String colour: constants.allPossibleColours) {
             if(!mastermindColours.contains(colour)) {
                 return colour;
             }
@@ -95,7 +95,7 @@ public class IntegratedTest {
         try{
             mastermind.mastermind(game);
         } catch (Error e) {
-            Assert.assertEquals("Error: you have not entered any colours!", e.getMessage());
+            Assert.assertEquals("Error: User guess not initialized.", e.getMessage());
         }
     }
 

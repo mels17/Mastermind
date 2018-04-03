@@ -13,10 +13,11 @@ public class Mastermind {
 
     public Mastermind(Constants constants) {
         this.constants = constants;
-        this.selectedColours = new ArrayList<>(constants.getMAX_LIST_SIZE());
+        this.selectedColours = new ArrayList<>(constants.MAX_LIST_SIZE);
     }
 
     public List<String> mastermind (Game game) {
+        // Returns an array with Whites and Blacks or Won in it.
         List<String> result = game.check(selectedColours);
         Collections.shuffle(result);
         return result;
@@ -36,22 +37,22 @@ public class Mastermind {
     }
 
     private List<String> shuffleColours() {
-        List<String> shuffledList = new ArrayList<>(constants.getAllPossibleColours());
+        List<String> shuffledList = new ArrayList<>(constants.allPossibleColours);
         Collections.shuffle(shuffledList);
         return shuffledList;
     }
 
     private void selectFourDifferentColours(List<String> shuffledList) {
-        selectedColours = shuffledList.subList(0, constants.getMAX_LIST_SIZE());
+        selectedColours = shuffledList.subList(0, constants.MAX_LIST_SIZE);
     }
 
     private void selectFourColoursThatCanBeDuplicates() {
         Random numberGenerator = new Random();
         int nextRandom;
 
-        for (int i = 0; i < constants.getMAX_LIST_SIZE() ; i++) {
-            nextRandom = numberGenerator.nextInt(constants.getAllPossibleColours().size() - i);
-            selectedColours.add(constants.getAllPossibleColours().get(nextRandom));
+        for (int i = 0; i < constants.MAX_LIST_SIZE ; i++) {
+            nextRandom = numberGenerator.nextInt(constants.allPossibleColours.size() - i);
+            selectedColours.add(constants.allPossibleColours.get(nextRandom));
         }
     }
 }

@@ -19,8 +19,7 @@ public class Game {
     }
 
     public void setUsersGuess(List<String> userInput) {
-        if (this.userInputValidation.triesLeft(noOfMoves) &&
-                this.userInputValidation.validArrayLength(userInput) && this.userInputValidation.validColours(userInput)) {
+        if (this.userInputValidation.triesLeft(noOfMoves) && this.userInputValidation.userGuessIsValid(userInput)) {
             this.userInput = userInput;
         } else {
             throw new Error(this.userInputValidation.getErrorMessage());
@@ -29,25 +28,29 @@ public class Game {
     }
 
     public List<String> check(List<String> mastermindList) {
-        noOfMoves++;
         List<String> result = new ArrayList<String>();
-
-        if(this.userInputValidation.isNotNull(userInput)) {
-            if (mastermindList.equals(userInput)) {
-                result.add(constants.getWON_MESSAGE());
-                System.out.print(constants.getWON_MESSAGE());
-
-            } else {
-                for (int i = 0; i < 4; i++) {
-                    if( userInput.get(i) == mastermindList.get(i)) {
-                        result.add(constants.getRIGHT_ANSWER_STRING());
-                    } else {
-                        result.add(constants.getWRONG_ANSWER_STRING());
-                    }
-                }
-            }
+        if(userInput == null || userInput.isEmpty()) {
+            throw new Error("Error: User guess not initialized.");
         } else {
-            throw new Error(this.userInputValidation.getErrorMessage());
+            noOfMoves++;
+            if (mastermindList.equals(userInput)) {
+                result.add(constants.WON_MESSAGE);
+                System.out.print(constants.WON_MESSAGE);
+            } else {
+                result = getResult(mastermindList);
+            }
+        }
+        return result;
+    }
+
+    private List<String> getResult(List<String> mastermindList) {
+        List<String> result = new ArrayList<String>();
+        for (int i = 0; i < constants.MAX_LIST_SIZE; i++) {
+            if( userInput.get(i).equals(mastermindList.get(i))) {
+                result.add(constants.RIGHT_ANSWER_STRING);
+            } else {
+                result.add(constants.WRONG_ANSWER_STRING);
+            }
         }
         return result;
     }

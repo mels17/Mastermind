@@ -18,10 +18,14 @@ public class UserInputValidation {
         return errorMessage;
     }
 
+    public boolean userGuessIsValid(List<String> userGuess) {
+        return validArrayLength(userGuess) && validColours(userGuess) && isNotNull(userGuess);
+    }
+
     public boolean validColours(List<String> userInput) {
         for (String colour: userInput) {
-            if(!constants.getAllPossibleColours().contains(userInput)) {
-                errorMessage = constants.getMessages().getInvalidColourErrorMessage();
+            if(!constants.allPossibleColours.contains(colour)) {
+                errorMessage = constants.messages.getInvalidColourErrorMessage();
                 return false;
             }
         }
@@ -30,16 +34,16 @@ public class UserInputValidation {
 
     public boolean validArrayLength(List<String> userInput) {
 
-        if (userInput.size() != constants.getMAX_LIST_SIZE()) {
-            errorMessage = this.constants.getMessages().getInvalidArrayLengthErrorMessage();
+        if (userInput.size() != constants.MAX_LIST_SIZE) {
+            errorMessage = this.constants.messages.getInvalidArrayLengthErrorMessage();
             return false;
         }
         return true;
     }
 
     public boolean triesLeft(int noOfTries) {
-        if (noOfTries > constants.getMAX_MOVES()) {
-            errorMessage = this.constants.getMessages().triesExceededErrorMessage();
+        if (noOfTries > constants.MAX_MOVES) {
+            errorMessage = this.constants.messages.triesExceededErrorMessage();
             return false;
         }
         return true;
@@ -47,7 +51,7 @@ public class UserInputValidation {
 
     public boolean isNotNull(List<String> userInput) {
         if (userInput == null) {
-            errorMessage = this.constants.getMessages().userInputNotSetMessage();
+            errorMessage = this.constants.messages.userInputNotSetMessage();
             return false;
         }
         return true;

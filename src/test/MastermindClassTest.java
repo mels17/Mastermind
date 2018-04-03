@@ -1,16 +1,39 @@
 package test;
 
 import main.Constants;
+import main.Game;
 import main.Mastermind;
+import main.UserInputValidation;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
+
 
 public class MastermindClassTest {
 
-    Constants constants = new Constants();
-    Mastermind mastermind = new Mastermind(constants);
+    private class DummyGameClass extends Game {
+
+        public DummyGameClass(Constants constants, UserInputValidation userInputValidation) {
+            super(constants, userInputValidation);
+        }
+
+        @Override
+        public List<String> check(List<String> mastermindColours) {
+            return Arrays.asList("White", "Black", "White", "Black");
+        }
+    }
+
+    Constants constants;
+    Mastermind mastermind;
+
+    @Before
+    public void initializeObjects() {
+        constants = new Constants();
+        mastermind = new Mastermind(constants);
+    }
 
     @Test
     public void selectFourDifferentRandomColoursFromTheGivenSixColours() {
@@ -21,10 +44,10 @@ public class MastermindClassTest {
 
         Assert.assertEquals(4, selectedColours.size());
 
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(0)));
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(1)));
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(2)));
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(3)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(0)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(1)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(2)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(3)));
     }
 
     @Test
@@ -35,9 +58,19 @@ public class MastermindClassTest {
 
         Assert.assertEquals(4, selectedColours.size());
 
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(0)));
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(1)));
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(2)));
-        Assert.assertTrue(constants.getAllPossibleColours().contains(selectedColours.get(3)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(0)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(1)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(2)));
+        Assert.assertTrue(constants.allPossibleColours.contains(selectedColours.get(3)));
+    }
+
+    @Test
+    public void checkIfResultArrayIsShuffled() {
+        Constants constants = new Constants();
+        DummyGameClass dummy = new DummyGameClass(constants, new UserInputValidation(constants));
+        List<String> actualResultArray = mastermind.mastermind(dummy);
+        List<String> expectedResultArray = Arrays.asList("White", "Black", "White", "Black");
+
+        Assert.assertNotEquals(expectedResultArray, actualResultArray );
     }
 }
